@@ -18,6 +18,7 @@ def parse():
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_data', '-train_data', type=str, required=True)
     parser.add_argument('--valid_data', '-valid_data', type=str, required=True)
+    parser.add_argument('--corpus', '-corpus', type=str, default='corpus.obj')
     parser.add_argument('--model', '-model', type=str, default='LSTM',
                         help='type of recurrent net (RNN_TANH, RNN_RELU, LSTM, GRU)')
     parser.add_argument('--embed_size', '-emsize', type=int, default=200, help='word embedding size')
@@ -81,7 +82,7 @@ def main():
 
     corpus = data.Corpus()
     corpus.add_dict(args.train_data)
-    with open('corpus.data', 'wb') as f:
+    with open(args.corpus, 'wb') as f:
         torch.save(corpus, f)
 
     eval_batch_size = 5
